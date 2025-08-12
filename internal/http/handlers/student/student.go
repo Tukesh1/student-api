@@ -13,7 +13,7 @@ import (
 	"github.com/go-playground/validator/v10"
 )
 
-func New() http.HandlerFunc {
+func New(storage storage.Storage) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) { 
 		slog.Info("creating student")
 		var student types.Student
