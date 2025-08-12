@@ -12,6 +12,7 @@ import (
 
 	"github.com/tukesh1/student-api/internal/config"
 	"github.com/tukesh1/student-api/internal/http/handlers/student"
+	"github.com/tukesh1/student-api/internal/storage/sqlite"
 )
 
 func main() {
@@ -19,14 +20,14 @@ func main() {
 	cfg := config.MustLoad()
 
 	// database setup
-
-
-
+	_, err := sqlite.New(cfg)
+	if err != nil {
+		log.Fatal(err)
+	}
+	slog.Info("Storage initilised", slog.String("env", cfg.Env))
 	// setup router
 	router := http.NewServeMux()
 	router.HandleFunc("POST /api/students", student.New())
-
-
 
 	//setup server
 	server := http.Server{
@@ -49,11 +50,11 @@ func main() {
 	}()
 
 	<-done // till when there is no signal in done channel the server will run
-    slog.Info("sutting done the server")
-	ctx, cancel :=context.WithTimeout(context.Background(),5* time.Second)
+	slog.Info("sutting done the server")
+	ctx, cancel := context.WithTimeout(context.Background(), 5*time.Second)
 	defer cancel()
-	
-	if err:= server.Shutdown(ctx); err !=nil {
+
+	if err := server.Shutdown(ctx); err != nil {
 		slog.Error("failed to shutdodn server", slog.String("error", err.Error()))
 	}
 	slog.Info("server shutdown successfully")
