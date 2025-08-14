@@ -77,6 +77,6 @@ yarn-error.log*
 ehthumbs.db
 Thumbs.db
 Desktop.ini
-scripts/setup-dummy-data.sh
+
 cmd-list.md
 README-COMPLETE.md
