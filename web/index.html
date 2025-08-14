@@ -1,0 +1,483 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Management System</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f5f5f5;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 0 20px rgba(0,0,0,0.1);
+            overflow: hidden;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 30px;
+            text-align: center;
+        }
+
+        .header h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+        }
+
+        .content {
+            padding: 30px;
+        }
+
+        .section {
+            margin-bottom: 40px;
+        }
+
+        .section h2 {
+            color: #333;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #667eea;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+            color: #555;
+            font-weight: 500;
+        }
+
+        input[type="text"], input[type="email"], input[type="number"] {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #ddd;
+            border-radius: 5px;
+            font-size: 16px;
+            transition: border-color 0.3s;
+        }
+
+        input[type="text"]:focus, input[type="email"]:focus, input[type="number"]:focus {
+            border-color: #667eea;
+            outline: none;
+        }
+
+        .btn {
+            padding: 12px 25px;
+            margin: 5px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: all 0.3s;
+        }
+
+        .btn-primary {
+            background: #667eea;
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: #5a67d8;
+        }
+
+        .btn-secondary {
+            background: #718096;
+            color: white;
+        }
+
+        .btn-secondary:hover {
+            background: #4a5568;
+        }
+
+        .btn-danger {
+            background: #e53e3e;
+            color: white;
+        }
+
+        .btn-danger:hover {
+            background: #c53030;
+        }
+
+        .btn-success {
+            background: #38a169;
+            color: white;
+        }
+
+        .btn-success:hover {
+            background: #2f855a;
+        }
+
+        .students-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        .student-card {
+            background: #f8f9fa;
+            border: 1px solid #e9ecef;
+            border-radius: 8px;
+            padding: 20px;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .student-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+
+        .student-card h3 {
+            color: #667eea;
+            margin-bottom: 10px;
+        }
+
+        .student-info {
+            margin-bottom: 15px;
+        }
+
+        .student-info p {
+            margin: 5px 0;
+            color: #555;
+        }
+
+        .card-actions {
+            display: flex;
+            gap: 10px;
+        }
+
+        .search-bar {
+            margin-bottom: 20px;
+        }
+
+        .search-bar input {
+            width: 300px;
+            display: inline-block;
+        }
+
+        .message {
+            padding: 15px;
+            margin: 10px 0;
+            border-radius: 5px;
+            display: none;
+        }
+
+        .message.success {
+            background: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+
+        .message.error {
+            background: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+        }
+
+        @media (max-width: 768px) {
+            .form-row {
+                grid-template-columns: 1fr;
+            }
+            .search-bar input {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🎓 Student Management System</h1>
+            <p>Manage student records with ease</p>
+        </div>
+        
+        <div class="content">
+            <!-- Messages -->
+            <div id="message" class="message"></div>
+            
+            <!-- Add Student Section -->
+            <div class="section">
+                <h2>Add New Student</h2>
+                <form id="studentForm">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="name">Name:</label>
+                            <input type="text" id="name" name="name" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="email">Email:</label>
+                            <input type="email" id="email" name="email" required>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="age">Age:</label>
+                        <input type="number" id="age" name="age" min="16" max="100" required>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Add Student</button>
+                    <button type="button" id="cancelEdit" class="btn btn-secondary" style="display: none;">Cancel Edit</button>
+                </form>
+            </div>
+            
+            <!-- Students List Section -->
+            <div class="section">
+                <h2>Students List</h2>
+                <div class="search-bar">
+                    <input type="text" id="searchInput" placeholder="Search students by name or email...">
+                    <button type="button" class="btn btn-secondary" onclick="searchStudents()">Search</button>
+                    <button type="button" class="btn btn-primary" onclick="loadStudents()">Show All</button>
+                </div>
+                <div id="studentsContainer" class="students-grid"></div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const API_BASE_URL = 'http://localhost:8082/api';
+        let editingStudentId = null;
+        
+        console.log('Student Management System loaded');
+        console.log('API Base URL:', API_BASE_URL);
+
+        // Initialize the application
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('DOM Content Loaded');
+            loadStudents();
+            
+            document.getElementById('studentForm').addEventListener('submit', handleFormSubmit);
+            document.getElementById('cancelEdit').addEventListener('click', cancelEdit);
+            document.getElementById('searchInput').addEventListener('keypress', function(e) {
+                if (e.key === 'Enter') {
+                    searchStudents();
+                }
+            });
+            console.log('Event listeners attached');
+        });
+
+        // Handle form submission (both add and edit)
+        async function handleFormSubmit(e) {
+            e.preventDefault();
+            
+            const formData = new FormData(e.target);
+            const studentData = {
+                name: formData.get('name'),
+                email: formData.get('email'),
+                age: parseInt(formData.get('age'))
+            };
+            
+            console.log('Submitting student data:', studentData);
+            console.log('Editing mode:', editingStudentId ? 'UPDATE' : 'CREATE');
+
+            try {
+                let response;
+                if (editingStudentId) {
+                    // Update existing student
+                    console.log('Updating student ID:', editingStudentId);
+                    response = await fetch(`${API_BASE_URL}/students/${editingStudentId}`, {
+                        method: 'PUT',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify(studentData)
+                    });
+                } else {
+                    // Add new student
+                    console.log('Creating new student');
+                    response = await fetch(`${API_BASE_URL}/students`, {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify(studentData)
+                    });
+                }
+
+                console.log('Response:', response);
+                
+                if (response.ok) {
+                    const result = await response.json();
+                    console.log('Success result:', result);
+                    showMessage(editingStudentId ? 'Student updated successfully!' : 'Student added successfully!', 'success');
+                    e.target.reset();
+                    cancelEdit();
+                    loadStudents();
+                } else {
+                    console.error('Request failed:', response.status);
+                    const errorText = await response.text();
+                    console.error('Error details:', errorText);
+                    try {
+                        const error = JSON.parse(errorText);
+                        showMessage(error.Error || 'An error occurred', 'error');
+                    } catch {
+                        showMessage('An error occurred', 'error');
+                    }
+                }
+            } catch (error) {
+                console.error('Network error:', error);
+                showMessage('Network error: ' + error.message, 'error');
+            }
+        }
+
+        // Load all students
+        async function loadStudents() {
+            try {
+                const response = await fetch(`${API_BASE_URL}/students`);
+                if (response.ok) {
+                    const students = await response.json();
+                    displayStudents(students);
+                } else {
+                    showMessage('Failed to load students', 'error');
+                }
+            } catch (error) {
+                showMessage('Network error: ' + error.message, 'error');
+            }
+        }
+
+        // Display students in cards
+        function displayStudents(students) {
+            const container = document.getElementById('studentsContainer');
+            
+            if (!students || students.length === 0) {
+                container.innerHTML = '<p style="text-align: center; color: #666; font-style: italic;">No students found.</p>';
+                return;
+            }
+
+            container.innerHTML = students.map(student => `
+                <div class="student-card">
+                    <h3>${student.name || student.Name}</h3>
+                    <div class="student-info">
+                        <p><strong>Email:</strong> ${student.email || student.Email}</p>
+                        <p><strong>Age:</strong> ${student.age || student.Age} years</p>
+                        <p><strong>ID:</strong> ${student.id || student.Id}</p>
+                    </div>
+                    <div class="card-actions">
+                        <button class="btn btn-secondary" onclick="editStudent(${student.id || student.Id})">Edit</button>
+                        <button class="btn btn-danger" onclick="deleteStudent(${student.id || student.Id})">Delete</button>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        // Search students
+        function searchStudents() {
+            const searchTerm = document.getElementById('searchInput').value.toLowerCase();
+            const studentCards = document.querySelectorAll('.student-card');
+            
+            studentCards.forEach(card => {
+                const text = card.textContent.toLowerCase();
+                if (text.includes(searchTerm)) {
+                    card.style.display = 'block';
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+        }
+
+        // Edit student
+        async function editStudent(id) {
+            console.log('Editing student with ID:', id);
+            try {
+                const response = await fetch(`${API_BASE_URL}/students/${id}`);
+                console.log('Edit response:', response);
+                if (response.ok) {
+                    const student = await response.json();
+                    console.log('Student data:', student);
+                    
+                    // Fill form with student data
+                    document.getElementById('name').value = student.name || student.Name;
+                    document.getElementById('email').value = student.email || student.Email;
+                    document.getElementById('age').value = student.age || student.Age;
+                    
+                    // Switch to edit mode
+                    editingStudentId = id;
+                    document.querySelector('.section h2').textContent = 'Edit Student';
+                    document.querySelector('button[type="submit"]').textContent = 'Update Student';
+                    document.getElementById('cancelEdit').style.display = 'inline-block';
+                    
+                    // Scroll to form
+                    document.querySelector('.section').scrollIntoView({ behavior: 'smooth' });
+                } else {
+                    console.error('Failed to load student data:', response.status);
+                    showMessage('Failed to load student data', 'error');
+                }
+            } catch (error) {
+                console.error('Network error:', error);
+                showMessage('Network error: ' + error.message, 'error');
+            }
+        }
+
+        // Cancel edit mode
+        function cancelEdit() {
+            editingStudentId = null;
+            document.querySelector('.section h2').textContent = 'Add New Student';
+            document.querySelector('button[type="submit"]').textContent = 'Add Student';
+            document.getElementById('cancelEdit').style.display = 'none';
+            document.getElementById('studentForm').reset();
+        }
+
+        // Delete student
+        async function deleteStudent(id) {
+            console.log('Deleting student with ID:', id);
+            if (!confirm('Are you sure you want to delete this student?')) {
+                return;
+            }
+
+            try {
+                const response = await fetch(`${API_BASE_URL}/students/${id}`, {
+                    method: 'DELETE'
+                });
+                console.log('Delete response:', response);
+
+                if (response.ok) {
+                    const result = await response.json();
+                    console.log('Delete result:', result);
+                    showMessage('Student deleted successfully!', 'success');
+                    loadStudents();
+                } else {
+                    console.error('Failed to delete student:', response.status);
+                    const errorText = await response.text();
+                    console.error('Error details:', errorText);
+                    showMessage('Failed to delete student', 'error');
+                }
+            } catch (error) {
+                console.error('Network error:', error);
+                showMessage('Network error: ' + error.message, 'error');
+            }
+        }
+
+        // Show message
+        function showMessage(message, type) {
+            const messageDiv = document.getElementById('message');
+            messageDiv.textContent = message;
+            messageDiv.className = `message ${type}`;
+            messageDiv.style.display = 'block';
+            
+            setTimeout(() => {
+                messageDiv.style.display = 'none';
+            }, 5000);
+        }
+    </script>
+</body>
+</html>
