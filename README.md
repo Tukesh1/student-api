@@ -7,22 +7,22 @@
 [![Next.js](https://img.shields.io/badge/Next.js-14+-black.svg)](https://nextjs.org)
 [![TypeScript](https://img.shields.io/badge/TypeScript-5+-3178c6.svg)](https://www.typescriptlang.org)
 
-## 🌟 **Project Highlights**
+## Project Highlights
 
-### **Business Impact**
+### Business Impact
 - **80% reduction** in manual attendance tracking time
 - **Real-time attendance monitoring** for teachers and administrators  
 - **Centralized student management** system
 - **Digital transformation** of traditional paper-based processes
 
-### **Technical Excellence**
+### Technical Excellence
 - **Full-stack architecture** with Go backend and React frontend
 - **RESTful API design** with comprehensive CRUD operations
 - **Real-time data synchronization** between frontend and backend
 - **Responsive web design** for desktop and mobile access
 - **Type-safe development** with TypeScript integration
 
-## 📊 **System Architecture**
+## System Architecture
 
 ```
 ┌─────────────────┐    HTTP/REST API    ┌──────────────────┐
@@ -44,34 +44,34 @@
                                        └──────────────────┘
 ```
 
-## 🎯 **Core Features**
+## Core Features
 
-### **👥 Student Management**
-- ✅ Add, edit, and delete student records
-- ✅ Student profiles with name, email, age, roll number
-- ✅ Real-time search and filtering
-- ✅ Bulk operations support
+### Student Management
+- Add, edit, and delete student records
+- Student profiles with name, email, age, roll number
+- Real-time search and filtering
+- Bulk operations support
 
-### **🏫 Class Management** 
-- ✅ Create and manage classes by grade and section
-- ✅ Assign teachers to classes
-- ✅ Class-wise student organization
-- ✅ Visual class cards interface
+### Class Management 
+- Create and manage classes by grade and section
+- Assign teachers to classes
+- Class-wise student organization
+- Visual class cards interface
 
-### **✅ Attendance Tracking**
-- ✅ Daily attendance marking (Present/Absent/Late)
-- ✅ Class and date selection
-- ✅ Student remarks and notes
-- ✅ Bulk attendance actions
-- ✅ Real-time attendance statistics
+### Attendance Tracking
+- Daily attendance marking (Present/Absent/Late)
+- Class and date selection
+- Student remarks and notes
+- Bulk attendance actions
+- Real-time attendance statistics
 
-### **📊 Reports & Analytics**
-- ✅ Attendance summary dashboards  
-- ✅ Student-wise attendance reports
-- ✅ Class-wise statistics
-- ✅ Date range filtering
+### Reports & Analytics
+- Attendance summary dashboards  
+- Student-wise attendance reports
+- Class-wise statistics
+- Date range filtering
 
-## 🛠 **Technology Stack**
+## Technology Stack
 
 | Component | Technology | Purpose |
 |-----------|------------|---------|
@@ -84,9 +84,9 @@
 | **Validation** | go-playground/validator | Input validation |
 | **CORS** | Custom middleware | Cross-origin support |
 
-## 🚀 **Quick Start**
+## Quick Start
 
-### **Option 1: Automated Setup**
+### Option 1: Automated Setup
 ```bash
 # Clone the repository
 git clone https://github.com/Tukesh1/student-api.git
@@ -103,9 +103,9 @@ cd attendance-frontend
 npm run dev
 ```
 
-### **Option 2: Manual Setup**
+### Option 2: Manual Setup
 
-#### **Backend Setup**
+#### Backend Setup
 ```bash
 # Install Go dependencies
 go mod tidy
@@ -114,7 +114,7 @@ go mod tidy
 go run cmd/student-api/main.go -Config config/local.yaml
 ```
 
-#### **Frontend Setup** 
+#### Frontend Setup 
 ```bash
 # Navigate to frontend
 cd attendance-frontend
@@ -126,32 +126,32 @@ npm install
 npm run dev
 ```
 
-### **Access the Application**
+### Access the Application
 - **Frontend**: http://localhost:3000
 - **Backend API**: http://localhost:8082
 - **Health Check**: http://localhost:8082/health
 
-## 📱 **User Interface**
+## User Interface
 
 ### **Dashboard Overview**
 - Clean, modern interface with tabbed navigation
 - Real-time statistics and summaries
 - Responsive design for all devices
 
-### **Student Management**
+### Student Management
 - Intuitive form-based student creation
 - Table view with search and filter capabilities
 - One-click edit and delete operations
 
-### **Attendance Tracking**
+### Attendance Tracking
 - Visual attendance marking interface
 - Class and date selection dropdowns
 - Bulk actions for efficient marking
 - Real-time attendance summary
 
-## 🔌 **API Documentation**
+## API Documentation
 
-### **Student Endpoints**
+### Student Endpoints
 ```http
 GET    /api/students          # List all students
 POST   /api/students          # Create new student  
@@ -160,7 +160,7 @@ PUT    /api/students/{id}     # Update student
 DELETE /api/students/{id}     # Delete student
 ```
 
-### **Class Endpoints**
+### Class Endpoints
 ```http
 GET    /api/classes           # List all classes
 POST   /api/classes           # Create new class
@@ -169,19 +169,19 @@ PUT    /api/classes/{id}      # Update class
 DELETE /api/classes/{id}      # Delete class
 ```
 
-### **System Endpoints**
+### System Endpoints
 ```http
 GET    /health                # Health check status
 ```
 
-## 📊 **Performance Metrics**
+## Performance Metrics
 - **Response Time**: < 50ms average API response
 - **Concurrent Users**: 100+ simultaneous users supported
 - **Database**: Optimized SQLite queries with prepared statements
 - **Frontend**: Fast React rendering with efficient state management
 - **Memory Usage**: < 100MB total system footprint
 
-## 🏗 **Project Structure**
+## Project Structure
 
 ```
 school-attendance-system/
@@ -205,14 +205,14 @@ school-attendance-system/
 └── storage/                  # SQLite database files
 ```
 
-## 🔒 **Security Features**
+## Security Features
 - Input validation and sanitization
 - SQL injection prevention (prepared statements)
 - CORS policy implementation  
 - Structured error handling (no sensitive data exposure)
 - Request logging for audit trails
 
-## 📈 **Scalability Considerations**
+## Scalability Considerations
 - **Database**: SQLite for development, PostgreSQL-ready for production
 - **Caching**: Redis integration ready
 - **Load Balancing**: Stateless API design
