@@ -28,7 +28,55 @@ go.work.sum
 .env
 
 # Editor/IDE
-# .idea/
-# .vscode/
-/storage
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+
+# Database files
+*.db
+*.sqlite
+*.sqlite3
+Dockerfile
+# Node.js (for frontend)
+node_modules/
+/.pnp
+.pnp.js
+
+# Frontend build output
+.next/
+out/
+dist/
+build/
+
+# Frontend dependencies and cache
+.npm
+.eslintcache
+.parcel-cache
+
+# Environment variables
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# Logs
+logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# OS generated files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+Desktop.ini
+scripts/setup-dummy-data.sh
 cmd-list.md
+README-COMPLETE.md

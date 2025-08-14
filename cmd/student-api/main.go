@@ -11,6 +11,7 @@ import (
 	"time"
 
 	"github.com/tukesh1/student-api/internal/config"
+	"github.com/tukesh1/student-api/internal/http/handlers/class"
 	"github.com/tukesh1/student-api/internal/http/handlers/health"
 	"github.com/tukesh1/student-api/internal/http/handlers/student"
 	"github.com/tukesh1/student-api/internal/middleware"
@@ -49,16 +50,25 @@ func main() {
 	// Handle OPTIONS requests for CORS preflight
 	router.HandleFunc("OPTIONS /api/students", corsHandler(func(w http.ResponseWriter, r *http.Request) {}))
 	router.HandleFunc("OPTIONS /api/students/{id}", corsHandler(func(w http.ResponseWriter, r *http.Request) {}))
+	router.HandleFunc("OPTIONS /api/classes", corsHandler(func(w http.ResponseWriter, r *http.Request) {}))
+	router.HandleFunc("OPTIONS /api/classes/{id}", corsHandler(func(w http.ResponseWriter, r *http.Request) {}))
 
 	// Health check endpoint
 	router.HandleFunc("GET /health", health.HealthCheck(storage))
 
-	// API routes with CORS
+	// Student API routes with CORS
 	router.HandleFunc("POST /api/students", corsHandler(student.New(storage)))
 	router.HandleFunc("GET /api/students/{id}", corsHandler(student.GetById(storage)))
 	router.HandleFunc("GET /api/students", corsHandler(student.GetList(storage)))
 	router.HandleFunc("PUT /api/students/{id}", corsHandler(student.UpdateById(storage)))
 	router.HandleFunc("DELETE /api/students/{id}", corsHandler(student.DeleteById(storage)))
+
+	// Class API routes with CORS
+	router.HandleFunc("POST /api/classes", corsHandler(class.New(storage)))
+	router.HandleFunc("GET /api/classes/{id}", corsHandler(class.GetById(storage)))
+	router.HandleFunc("GET /api/classes", corsHandler(class.GetList(storage)))
+	router.HandleFunc("PUT /api/classes/{id}", corsHandler(class.UpdateById(storage)))
+	router.HandleFunc("DELETE /api/classes/{id}", corsHandler(class.DeleteById(storage)))
 
 	// Serve static files
 	router.Handle("/", http.FileServer(http.Dir("web/")))

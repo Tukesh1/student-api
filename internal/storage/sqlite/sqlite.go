@@ -18,17 +18,47 @@ func New(cfg *config.Config) (*Sqlite, error) {
 	if err != nil {
 		return nil, err
 	}
-	// reate table
 
+	// Create students table
 	_, err = db.Exec(`CREATE TABLE IF NOT EXISTS students(
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     name TEXT,
     email TEXT,
-    age INTEGER
+    age INTEGER,
+    class_id INTEGER,
+    roll_no TEXT
 )`)
 	if err != nil {
 		return nil, err
 	}
+
+	// Create classes table
+	_, err = db.Exec(`CREATE TABLE IF NOT EXISTS classes(
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    name TEXT,
+    grade TEXT,
+    section TEXT,
+    teacher_name TEXT
+)`)
+	if err != nil {
+		return nil, err
+	}
+
+	// Create attendance_records table
+	_, err = db.Exec(`CREATE TABLE IF NOT EXISTS attendance_records(
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    student_id INTEGER,
+    class_id INTEGER,
+    date DATE,
+    status TEXT,
+    remarks TEXT,
+    FOREIGN KEY(student_id) REFERENCES students(id),
+    FOREIGN KEY(class_id) REFERENCES classes(id)
+)`)
+	if err != nil {
+		return nil, err
+	}
+
 	return &Sqlite{
 		Db: db,
 	}, nil
