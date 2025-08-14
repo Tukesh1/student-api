@@ -2,6 +2,8 @@
 
 > A comprehensive full-stack application for managing school attendance, built with Go backend and React frontend.
 
+![Student Management System](docs/student-management-interface.png)
+
 [![Go Version](https://img.shields.io/badge/Go-1.20+-blue.svg)](https://golang.org)
 [![React](https://img.shields.io/badge/React-18+-61dafb.svg)](https://reactjs.org)
 [![Next.js](https://img.shields.io/badge/Next.js-14+-black.svg)](https://nextjs.org)
@@ -101,6 +103,11 @@ go run cmd/student-api/main.go -Config config/local.yaml
 # Start frontend (Terminal 2) 
 cd attendance-frontend
 npm run dev
+
+# # populate dummy data - for tests
+# # start (terminal 3)
+# chmod +x scripts/setup-dummy-data.sh
+# ./scripts/setup-dummy-data.sh
 ```
 
 ### Option 2: Manual Setup
@@ -125,6 +132,13 @@ npm install
 # Start development server
 npm run dev
 ```
+### Populate dummy data - For Tests
+
+```bash
+chmod +x scripts/setup-dummy-data.sh
+./scripts/setup-dummy-data.sh
+```
+
 
 ### Access the Application
 - **Frontend**: http://localhost:3000
